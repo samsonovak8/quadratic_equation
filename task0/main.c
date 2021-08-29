@@ -10,7 +10,7 @@
 //! @return Number of roots
 //!
 //! @note In case of infinite number of roots,
-//! returns SS_INF_ROOTS.
+//! returns digit '3'.
 //------------------------------------------------
 
 #include <stdio.h>
@@ -40,23 +40,23 @@ int solveEquation(double a, double b, double c, double* x1, double* x2)
         {
             return (c == 0) ? 3:0;
         }
-        else //if (b != 0)
+        else
         {
-            *x1 = (-c)/b;
+            *x1 = (- c)/ b;
             return 1;
         }
     }
-    else //if (a != 0)
+    else
     {
         double D = find_diskriminant(a, b, c);
         if (D < 0)
             return 0;
         if (D == 0)
         {
-            *x1 = *x2 = (-b)/(2*a);
+            *x1 = *x2 = (- b)/(2 * a);
             return 1;
         }
-        else //if (D > 0)
+        else
         {
             *x1 = (- b - sqrt(D))/(2 * a);
             *x2 = (- b + sqrt(D))/(2 * a);
@@ -64,13 +64,8 @@ int solveEquation(double a, double b, double c, double* x1, double* x2)
         }
     }
 }
-int main()
+void answer_out(int number_roots, double x1, double x2)
 {
-    double a = 0, b = 0, c = 0;
-    printf("Enter quadratic coefficients: a, b, c\n");
-    scanf("%lf%lf%lf", &a, &b, &c);
-    double x1 = 0, x2 = 0;
-    int number_roots = solveEquation(a, b, c, &x1, &x2);
     switch (number_roots)
     {
     case 0: printf("No roots\n");
@@ -84,5 +79,14 @@ int main()
     default: printf("main(): EROOR number_roots = %d", number_roots);
             return 1;
     }
+}
+int main()
+{
+    double a = 0, b = 0, c = 0;
+    printf("Enter quadratic coefficients: a, b, c\n");
+    scanf("%lf%lf%lf", &a, &b, &c);
+    double x1 = 0, x2 = 0;
+    int number_roots = solveEquation(a, b, c, &x1, &x2);
+    answer_out(number_roots, x1, x2);
     return 0;
 }
